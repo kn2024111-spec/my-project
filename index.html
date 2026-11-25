@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>선행 연구 정리 도구</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>선행 연구 정리 도구</h1>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="search" role="tab">🔍 논문 검색</button>
+      <button class="tab" data-tab="library" role="tab">📚 내 목록 <span id="libCount" class="badge">0</span></button>
+      <button class="tab" data-tab="matrix" role="tab">📋 정리표</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 검색 -->
+    <section id="tab-search" class="panel active">
+      <form id="searchForm" class="search-form">
+        <input id="q" type="search" placeholder="키워드를 입력하세요 (예: 생성형 AI 교육, climate change adaptation)" required>
+        <div class="row">
+          <label>연도 <input id="yearFrom" type="number" min="1900" max="2100" placeholder="부터"></label>
+          <label>~ <input id="yearTo" type="number" min="1900" max="2100" placeholder="까지"></label>
+          <label>정렬
+            <select id="sort">
+              <option value="relevance_score:desc">관련도순</option>
+              <option value="cited_by_count:desc">인용 많은 순</option>
+              <option value="publication_date:desc">최신순</option>
+            </select>
+          </label>
+          <label class="check"><input id="oaOnly" type="checkbox"> 무료 원문만</label>
+          <button type="submit" class="primary">검색</button>
+        </div>
+      </form>
+      <p id="searchInfo" class="muted"></p>
+      <div id="results" class="list"></div>
+      <div class="pager">
+        <button id="prevPage" disabled>← 이전</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage" disabled>다음 →</button>
+      </div>
+    </section>
+
+    <!-- 내 목록 -->
+    <section id="tab-library" class="panel">
+      <div class="toolbar">
+        <input id="libFilter" type="search" placeholder="내 목록에서 찾기 (제목·저자·태그·메모)">
+        <select id="statusFilter">
+          <option value="">전체 상태</option>
+          <option value="읽을 예정">읽을 예정</option>
+          <option value="읽는 중">읽는 중</option>
+          <option value="읽음">읽음</option>
+          <option value="핵심">⭐ 핵심</option>
+        </select>
+        <button id="addManual">+ 직접 추가</button>
+      </div>
+      <div id="library" class="list"></div>
+    </section>
+
+    <!-- 정리표 -->
+    <section id="tab-matrix" class="panel">
+      <p class="muted">표의 칸을 클릭해서 바로 수정할 수 있어요. 수정한 내용은 자동 저장돼요.</p>
+      <div class="toolbar">
+        <button id="exportCsv">엑셀(CSV) 내보내기</button>
+        <button id="exportBib">BibTeX 내보내기</button>
+        <button id="exportJson">백업 저장</button>
+        <label class="filebtn">백업 불러오기<input id="importJson" type="file" accept=".json" hidden></label>
+      </div>
+      <div class="table-wrap"><table id="matrix"></table></div>
+    </section>
+  </main>
+
+  <template id="tplEdit">
+    <dialog class="editor">
+      <form method="dialog">
+        <h2>연구 정보 수정</h2>
+        <label>제목<input name="title" required></label>
+        <label>저자 (쉼표로 구분)<input name="authors"></label>
+        <div class="row">
+          <label>연도<input name="year" type="number"></label>
+          <label>학술지/출처<input name="venue"></label>
+        </div>
+        <label>DOI 또는 링크<input name="url"></label>
+        <label>상태
+          <select name="status">
+            <option>읽을 예정</option><option>읽는 중</option><option>읽음</option><option>핵심</option>
+          </select>
+        </label>
+        <label>태그 (쉼표로 구분)<input name="tags"></label>
+        <label>연구 목적<textarea name="purpose" rows="2"></textarea></label>
+        <label>연구 방법<textarea name="method" rows="2"></textarea></label>
+        <label>주요 결과<textarea name="result" rows="2"></textarea></label>
+        <label>시사점 / 내 연구와의 관계<textarea name="note" rows="3"></textarea></label>
+        <label>초록<textarea name="abstract" rows="4"></textarea></label>
+        <div class="row end">
+          <button value="cancel" formnovalidate>취소</button>
+          <button value="save" class="primary">저장</button>
+        </div>
+      </form>
+    </dialog>
+  </template>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
