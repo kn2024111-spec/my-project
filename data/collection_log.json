@@ -1,0 +1,18 @@
+{
+ "orgCode": "4490000",
+ "sigungu": "천안시",
+ "months": {
+  "2019-01": {
+   "totalCount": 86,
+   "fetched": 86,
+   "complete": true,
+   "fetchedAt": "2026-11-27T14:42:48"
+  },
+  "2019-02": {
+   "totalCount": 85,
+   "fetched": 85,
+   "complete": true,
+   "fetchedAt": "2026-11-27T14:42:50"
+  }
+ }
+}
