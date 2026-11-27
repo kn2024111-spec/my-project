@@ -1,0 +1,71 @@
+{
+  "runAt": "2026-11-27T14:16:50.865Z",
+  "yearRange": [
+    2010,
+    2026
+  ],
+  "perQuery": {
+    "stray dog capture": {
+      "hits": 13510,
+      "fetched": 50
+    },
+    "stray animal rescue": {
+      "hits": 12170,
+      "fetched": 50
+    },
+    "animal control officer": {
+      "hits": 190518,
+      "fetched": 50
+    },
+    "animal shelter intake outcomes": {
+      "hits": 13127,
+      "fetched": 50
+    },
+    "animal shelter management dogs cats": {
+      "hits": 13951,
+      "fetched": 50
+    },
+    "shelter length of stay dogs": {
+      "hits": 9568,
+      "fetched": 50
+    },
+    "return to owner lost dogs microchip": {
+      "hits": 422,
+      "fetched": 50
+    },
+    "animal shelter capacity": {
+      "hits": 111323,
+      "fetched": 50
+    },
+    "animal shelter staff occupational injury": {
+      "hits": 3326,
+      "fetched": 50
+    },
+    "stray dogs Korea": {
+      "hits": 5076,
+      "fetched": 50
+    },
+    "유기동물": {
+      "hits": 38,
+      "fetched": 38
+    },
+    "동물보호센터": {
+      "hits": 4,
+      "fetched": 4
+    },
+    "유기견": {
+      "hits": 46,
+      "fetched": 46
+    }
+  },
+  "flow": {
+    "identified": 588,
+    "duplicatesRemoved": 71,
+    "afterDedup": 517,
+    "afterBasic": 338,
+    "afterScreening": 106,
+    "afterVerify1": 98,
+    "included": 98,
+    "excluded": 419
+  }
+}
