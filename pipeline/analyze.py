@@ -242,7 +242,7 @@ def main():
     order = [o for o in ["반환", "입양", "자연사", "안락사"] if o in d["outcome"].unique()]
     ax.boxplot([d.loc[d["outcome"] == o, "days_to_update_est"] for o in order], tick_labels=order, showfliers=False,
                patch_artist=True, boxprops=dict(facecolor="#dbeafe", color=ACCENT), medianprops=dict(color=INK))
-    style(ax, "처리 결과별 소요일(추정: 최종수정일 − 발견일)", "일")
+    style(ax, "처리 결과별 소요일(추정: 최종수정일 - 발견일)", "일")
     f5 = save(fig, "05_days_to_outcome.png")
     A("## 5. 처리까지 걸린 기간 — 추정 (선행연구의 보호기간 지표)\n")
     A(f"![처리 소요일]({f5})\n")
