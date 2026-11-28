@@ -67,13 +67,18 @@ def papers(tag: str, n=3):
     return "\n".join(out)
 
 
+NO_COMMA_COLS = {"연도", "월", "year", "month"}
+
+
 def table_md(df: pd.DataFrame, floatfmt="{:,.1f}") -> str:
     cols = [str(c) for c in df.columns]
     lines = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
     for _, r in df.iterrows():
         cells = []
-        for v in r:
-            if isinstance(v, float):
+        for c, v in zip(cols, r):
+            if c in NO_COMMA_COLS and isinstance(v, (int, float)) and float(v).is_integer():
+                cells.append(str(int(v)))  # 연도·월에는 천 단위 쉼표를 붙이지 않음
+            elif isinstance(v, float):
                 cells.append(floatfmt.format(v))
             elif isinstance(v, int):
                 cells.append(f"{v:,}")
@@ -103,7 +108,13 @@ def main():
     A(f"- 기간: {p_from:%Y-%m-%d} ~ {p_to:%Y-%m-%d} (발견일 기준) · 생성일: {dt.date.today():%Y-%m-%d}")
     A(f"- 수집 {summ['raw_rows']:,}건 → 형식 오류 {summ['rejected']:,}건·중복 {summ['duplicates_removed']:,}건 제외 → **분석 {summ['clean_rows']:,}건**")
     A(f"- 수집 완결성: {len(log['months'])}개월 모두 API 총건수와 수집 건수 일치 여부 확인 "
-      f"(불일치 {sum(1 for v in log['months'].values() if not v['complete'])}개월)\n")
+      f"(불일치 {sum(1 for v in log['months'].values() if not v['complete'])}개월)")
+    gaps = {k: v["sourceGap"] for k, v in log["months"].items() if v.get("sourceGap")}
+    if gaps:
+        A(f"- 원천 누락: API가 총건수에는 포함하지만 목록으로는 제공하지 않는 공고 {sum(gaps.values())}건"
+          f"({', '.join(f'{k} {v}건' for k, v in gaps.items())}). 조회 조건을 바꿔도 받을 수 없어 분석에서 빠졌어요"
+          f"(전체의 {sum(gaps.values()) / (summ['raw_rows'] + sum(gaps.values())):.2%}).")
+    A("")
     A("> 이 보고서의 수치는 `pipeline/analyze.py`가 데이터에서 직접 계산한 값이에요. "
       "'추정'이라고 표시한 지표는 API에 해당 항목이 없어 다른 항목으로 근사한 값이라 해석에 주의가 필요해요.\n")
 
