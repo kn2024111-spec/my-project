@@ -1,0 +1,10 @@
+{
+ "period": [
+  "2019-01-01",
+  "2026-11-27"
+ ],
+ "raw_rows": 9384,
+ "rejected": 0,
+ "duplicates_removed": 0,
+ "clean_rows": 9384
+}

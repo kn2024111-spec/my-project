@@ -1,0 +1,17 @@
+{
+  "auditedAt": "2026-11-27T14:17:23.160Z",
+  "checks": [
+    "DOI 실존(doi.org)",
+    "제목 일치(Crossref)",
+    "저자 일치(Crossref)",
+    "연도 일치(Crossref)",
+    "학술지 일치(Crossref)",
+    "동일 논문 재조회(OpenAlex)",
+    "초록 재현(OpenAlex)",
+    "발췌문이 초록 원문에 그대로 있음",
+    "HTML 기호 잔존 없음"
+  ],
+  "audited": 98,
+  "passed": 98,
+  "failed": []
+}
